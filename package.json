@@ -8,14 +8,25 @@
     "express",
     "nodejs"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MXJosueDev/express-workshop.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MXJosueDev/express-workshop/issues"
+  },
+  "homepage": "https://github.com/MXJosueDev/express-workshop#readme",
   "license": "ISC",
   "author": "Josue Lopez Rico",
   "type": "commonjs",
   "main": "index.js",
   "scripts": {
+    "start": "node index",
+    "dev": "nodemon index",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "express": "^5.2.1",
+    "nodemon": "^3.1.14"
   }
 }
