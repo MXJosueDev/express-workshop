@@ -20,6 +20,52 @@ pokemon.post("/", async (req, res, next) => {
   return res.status(500).json({ code: 500, message: "Ocurrio un error" });
 });
 
+pokemon.delete(/^\/([0-9]{1,3})$/, async (req, res, next) => {
+  const id = req.params[0];
+
+  const query = `DELETE FROM pokemon WHERE pok_id=${id}`;
+
+  const rows = await db.query(query);
+
+  if (rows.affectedRows == 1) {
+    return res.status(200).json({ code: 200, message: "Pokemon borrado correctamente" });
+  }
+  return res.status(404).json({ code: 404, message: "Pokemon no encontrado" });
+});
+
+pokemon.put(/^\/([0-9]{1,3})$/, async (req, res, next) => {
+  const id = req.params[0];
+
+  const { pok_name, pok_height, pok_weight, pok_base_experience } = req.body;
+
+  if (!(pok_name && pok_height && pok_weight && pok_base_experience))
+    return res.status(400).json({ code: 400, message: "Campos incompletos" });
+
+  const query = `UPDATE pokemon SET pok_name='${pok_name}',pok_height=${pok_height},pok_weight=${pok_weight},pok_base_experience=${pok_base_experience} WHERE pok_id=${id}`;
+  const rows = await db.query(query);
+
+  if (rows.affectedRows == 1) {
+    return res.status(201).json({ code: 201, message: "Pokemon actualizado correctamente" });
+  }
+
+  return res.status(500).json({ code: 500, message: "Ocurrio un error" });
+});
+
+pokemon.patch(/^\/([0-9]{1,3})$/, async (req, res, next) => {
+  const id = req.params[0];
+
+  if (!pok_name) return res.status(400).json({ code: 400, message: "Campos incompletos" });
+
+  const query = `UPDATE pokemon SET pok_name='${req.body.pok_name}' WHERE pok_id=${id}`;
+  const rows = await db.query(query);
+
+  if (rows.affectedRows == 1) {
+    return res.status(201).json({ code: 201, message: "Pokemon actualizado correctamente" });
+  }
+
+  return res.status(500).json({ code: 500, message: "Ocurrio un error" });
+});
+
 pokemon.get("/", async (req, res, next) => {
   const pk = await db.query("SELECT * FROM pokemon;");
   return res.status(200).json({ code: 200, message: pk });
