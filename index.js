@@ -2,6 +2,7 @@ const morgan = require("morgan");
 const express = require("express");
 const app = express();
 const pokemon = require("./routes/pokemon");
+const user = require("./routes/user");
 
 /*
 Métodos HTTP
@@ -22,6 +23,7 @@ app.get("/", (req, res, next) => {
 });
 
 app.use("/pokemon", pokemon);
+app.use("/user", user);
 
 app.use((req, res, next) => {
   return res.status(404).json({ code: 404, message: "URL no encontrada" });
