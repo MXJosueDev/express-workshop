@@ -38,6 +38,7 @@ user.post("/login", async (req, res, next) => {
       {
         user_id: rows[0].user_id,
         user_mail: rows[0].user_mail,
+        
       },
       "debugkey"
     );
@@ -45,7 +46,7 @@ user.post("/login", async (req, res, next) => {
     res.status(200).json({ code: 200, message: token });
   }
 
-  return res.status(401).json({ code: 401, message: "Usuario y/o contraseña incorrectos" });
+  return res.status(200).json({ code: 401, message: "Usuario y/o contraseña incorrectos" });
 });
 
 user.get("/", async (req, res, next) => {
